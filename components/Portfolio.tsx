@@ -1,11 +1,13 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ProjectCategory } from '../types';
 import { PROJECTS } from '../constants';
 import { ExternalLink, Search } from 'lucide-react';
 
 const Portfolio: React.FC = () => {
   const [filter, setFilter] = useState<ProjectCategory>(ProjectCategory.ALL);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const filteredProjects = filter === ProjectCategory.ALL 
     ? PROJECTS 
@@ -13,10 +15,28 @@ const Portfolio: React.FC = () => {
 
   const categories = Object.values(ProjectCategory);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="portfolio" className="py-24 bg-slate-100/30">
+    <section id="portfolio" ref={sectionRef} className="py-24 bg-slate-100/30">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="flex flex-col lg:flex-row justify-between items-end gap-8 mb-16">
+        <div className={`flex flex-col lg:flex-row justify-between items-end gap-8 mb-16 transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
           <div className="max-w-2xl">
             <h2 className="text-blue-600 font-bold uppercase tracking-widest text-sm mb-4">Our Work</h2>
             <h3 className="text-4xl md:text-5xl font-bold font-poppins text-slate-900">Case Studies & Success Stories</h3>
@@ -40,10 +60,11 @@ const Portfolio: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project) => (
+          {filteredProjects.map((project, index) => (
             <div 
               key={project.id} 
-              className="group relative overflow-hidden rounded-3xl aspect-[4/3] shadow-lg"
+              className={`group relative overflow-hidden rounded-3xl aspect-[4/3] shadow-lg transition-all duration-700 transform ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-20 scale-95'}`}
+              style={{ transitionDelay: isVisible ? `${index * 150}ms` : '0ms' }}
             >
               <img 
                 src={project.image} 

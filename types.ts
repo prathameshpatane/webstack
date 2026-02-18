@@ -1,11 +1,19 @@
 
 import React from 'react';
 
+export interface ServiceDetailInfo {
+  longDescription: string;
+  features: string[];
+  process: { step: string; description: string }[];
+  benefits: string[];
+}
+
 export interface Service {
   id: string;
   title: string;
   description: string;
   icon: React.ReactNode;
+  detailedInfo?: ServiceDetailInfo;
 }
 
 export interface Project {

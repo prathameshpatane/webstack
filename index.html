@@ -32,6 +32,13 @@
                 950: '#082f49',
               },
             },
+            animation: {
+              'fade-up': 'fadeUp 0.8s cubic-bezier(0.21, 0.45, 0.32, 0.9) forwards',
+              'fade-down': 'fadeDown 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards',
+              'reveal-text': 'revealText 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards',
+              'slow-zoom': 'slowZoom 20s linear infinite alternate',
+              'float-subtle': 'floatSubtle 4s ease-in-out infinite',
+            },
           },
         },
       }
@@ -40,6 +47,7 @@
       body {
         background-color: #f8fafc; /* slate-50 */
         color: #0f172a; /* slate-900 */
+        overflow-x: hidden;
       }
       .glass-card {
         background: rgba(255, 255, 255, 0.7);
@@ -47,44 +55,79 @@
         -webkit-backdrop-filter: blur(16px);
         border: 1px solid rgba(255, 255, 255, 0.4);
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+      .glass-card:hover {
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 12px 48px 0 rgba(31, 38, 135, 0.12);
+        transform: translateY(-4px);
       }
       .gradient-text {
         background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        background-size: 200% auto;
+        animation: textShimmer 4s linear infinite;
       }
-      .gradient-border {
+      
+      @keyframes textShimmer {
+        to { background-position: 200% center; }
+      }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes fadeDown {
+        from { opacity: 0; transform: translateY(-80px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes revealText {
+        from { clip-path: inset(0 100% 0 0); }
+        to { clip-path: inset(0 0 0 0); }
+      }
+
+      @keyframes slowZoom {
+        from { transform: scale(1); }
+        to { transform: scale(1.1); }
+      }
+
+      @keyframes floatSubtle {
+        0%, 100% { transform: translateY(0) rotate(0); }
+        50% { transform: translateY(-10px) rotate(1deg); }
+      }
+
+      .stagger-1 { animation-delay: 0.1s; }
+      .stagger-2 { animation-delay: 0.25s; }
+      .stagger-3 { animation-delay: 0.4s; }
+      .stagger-4 { animation-delay: 0.55s; }
+      .stagger-5 { animation-delay: 0.7s; }
+      .stagger-6 { animation-delay: 0.85s; }
+
+      .reveal-box {
         position: relative;
-        border-radius: 1rem;
+        overflow: hidden;
       }
-      .gradient-border::before {
-        content: "";
+      .reveal-box::after {
+        content: '';
         position: absolute;
-        inset: -1px;
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(139, 92, 246, 0.5));
-        border-radius: inherit;
-        z-index: -1;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: #3b82f6;
+        transform: translateX(-101%);
+        animation: boxReveal 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
       }
-      @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-20px); }
+      @keyframes boxReveal {
+        0% { transform: translateX(-101%); }
+        50% { transform: translateX(0); }
+        100% { transform: translateX(101%); }
       }
-      .animate-float {
-        animation: float 6s ease-in-out infinite;
-      }
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #f8fafc;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
-      }
+
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #f8fafc; }
+      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
   <script type="importmap">
 {
