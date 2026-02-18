@@ -3,8 +3,9 @@ import React from 'react';
 
 export interface ServiceDetailInfo {
   longDescription: string;
+  heroImage: string;
   features: string[];
-  process: { step: string; description: string }[];
+  process: { step: string; description: string; image: string }[];
   benefits: string[];
 }
 
