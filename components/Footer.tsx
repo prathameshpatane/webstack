@@ -9,9 +9,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
           <div className="space-y-8">
             <a href="#home" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center">
-                <Terminal className="text-white w-6 h-6" />
-              </div>
+              <img src="/logoweb.png" alt="WebStack Logo" className="w-16 h-16 object-contain" />
               <span className="text-2xl font-bold font-poppins text-slate-900">WebStack<span className="text-purple-600">.</span></span>
             </a>
             <p className="text-slate-600 leading-relaxed font-medium">

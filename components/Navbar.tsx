@@ -16,11 +16,9 @@ const Navbar: React.FC<NavbarProps> = ({ scrolled }) => {
     }`}>
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
         <a href="#home" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
-            <Terminal className="text-white w-6 h-6" />
-          </div>
+          <img src="/logoweb.png" alt="WebStack Logo" className="w-16 h-16 object-contain group-hover:scale-110 transition-transform" />
           <span className="text-2xl font-bold font-poppins tracking-tight text-slate-900">
-            WebStack<span className="text-purple-600">.</span>
+            WebStack<span className="text-purple-600"></span>
           </span>
         </a>
 
