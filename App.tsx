@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import ThemeBackground from './components/ThemeBackground';
 import ServiceDetail from './components/ServiceDetail';
 import { Service } from './types';
+import Founder from './components/Founder';
 
 const App: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -49,6 +50,7 @@ const App: React.FC = () => {
             <Services onServiceClick={handleServiceSelect} />
             <About />
             <Portfolio />
+            <Founder/>
             <Testimonials />
             <Contact />
           </>
